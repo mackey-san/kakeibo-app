@@ -1,0 +1,108 @@
+.app {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px 16px 64px;
+}
+
+.app-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.app-header h1 {
+  font-size: 1.6rem;
+  margin-bottom: 8px;
+}
+
+.total-amount {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #2563eb;
+}
+
+.receipt-uploader {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.upload-button {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #2563eb;
+  color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.upload-button:hover {
+  background-color: #1d4ed8;
+}
+
+.error-message {
+  color: #dc2626;
+  margin-top: 8px;
+}
+
+.empty-message {
+  color: #6b7280;
+  text-align: center;
+}
+
+.charts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
+  margin-bottom: 32px;
+}
+
+.chart-card {
+  flex: 1 1 320px;
+  max-width: 400px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.chart-card h2 {
+  font-size: 1rem;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.list-section h2 {
+  font-size: 1.1rem;
+  margin-bottom: 12px;
+}
+
+.expense-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.expense-table th,
+.expense-table td {
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.expense-table th {
+  background: #f3f4f6;
+}
+
+.delete-button {
+  background: none;
+  border: none;
+  color: #dc2626;
+  cursor: pointer;
+}
+
+.delete-button:hover {
+  text-decoration: underline;
+}

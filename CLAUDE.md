@@ -2,10 +2,13 @@
 
 家計簿(家計簿管理)アプリ。Web アプリとして React / Next.js での構築を予定している。
 
-## 技術構成(予定)
+## 技術構成
 
-- フロントエンド: React (Next.js)
-- 詳細な言語・DB・デプロイ先などはプロジェクトの進行に合わせて追記する
+- フロントエンド: React (Vite) — `client/`
+- バックエンド: Node.js (Express) — `server/`。Claude API (`claude-haiku-4-5`) を呼び出してレシート画像を解析する
+- データ永続化: ブラウザのローカルストレージ(サーバー側DBは未使用)
+- グラフ描画: Chart.js (react-chartjs-2)
+- Claude APIキーは `server/.env` で管理し、`.gitignore`で除外。フロントエンドから直接APIキーを使わない
 
 ## Git運用ルール
 
