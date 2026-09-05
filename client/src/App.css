@@ -44,6 +44,23 @@
   margin-top: 8px;
 }
 
+.warning-list {
+  list-style: none;
+  padding: 0;
+  margin: 12px auto 0;
+  max-width: 480px;
+  text-align: left;
+}
+
+.warning-message {
+  color: #b45309;
+  background: #fffbeb;
+  border: 1px solid #fcd34d;
+  border-radius: 6px;
+  padding: 8px 12px;
+  margin-bottom: 8px;
+}
+
 .empty-message {
   color: #6b7280;
   text-align: center;

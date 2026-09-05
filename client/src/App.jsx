@@ -21,7 +21,7 @@ function App() {
         <p className="total-amount">合計支出: ¥{total.toLocaleString()}</p>
       </header>
 
-      <ReceiptUploader onExpensesExtracted={addExpenses} />
+      <ReceiptUploader expenses={expenses} onExpensesExtracted={addExpenses} />
 
       <section className="charts">
         <div className="chart-card">
