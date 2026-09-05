@@ -4,6 +4,7 @@ import express from "express";
 import cors from "cors";
 import multer from "multer";
 import Anthropic from "@anthropic-ai/sdk";
+import heicConvert from "heic-convert";
 
 const app = express();
 const port = process.env.PORT || 3001;
@@ -33,11 +34,30 @@ app.post("/api/receipts", upload.single("receipt"), async (req, res) => {
   }
 
   const allowedMediaTypes = ["image/jpeg", "image/png", "image/webp", "image/gif"];
-  if (!allowedMediaTypes.includes(req.file.mimetype)) {
-    return res.status(400).json({ error: "対応していない画像形式です(jpeg/png/webp/gifのみ)" });
+  const extension = (req.file.originalname.split(".").pop() || "").toLowerCase();
+  const isHeic =
+    ["image/heic", "image/heif"].includes(req.file.mimetype) ||
+    extension === "heic" ||
+    extension === "heif";
+
+  let imageBuffer = req.file.buffer;
+  let mediaType = req.file.mimetype;
+
+  if (isHeic) {
+    // ClaudeはHEIC/HEIFを直接読み取れないため、事前にJPEGへ変換する
+    try {
+      const converted = await heicConvert({ buffer: imageBuffer, format: "JPEG", quality: 0.9 });
+      imageBuffer = Buffer.from(converted);
+      mediaType = "image/jpeg";
+    } catch (err) {
+      console.error("HEIC変換エラー:", err);
+      return res.status(400).json({ error: "HEIC画像の変換に失敗しました" });
+    }
+  } else if (!allowedMediaTypes.includes(mediaType)) {
+    return res.status(400).json({ error: "対応していない画像形式です(jpeg/png/webp/gif/heicのみ)" });
   }
 
-  const base64Image = req.file.buffer.toString("base64");
+  const base64Image = imageBuffer.toString("base64");
 
   const prompt = `あなたはレシート画像を読み取る家計簿アプリのアシスタントです。
 画像に写っているレシートから、以下の情報をJSON形式のみで出力してください。説明文やコードブロックの記号は一切付けないでください。
@@ -66,7 +86,7 @@ categoryは必ず次の中から最も適切なものを1つ選んでくださ�
               type: "image",
               source: {
                 type: "base64",
-                media_type: req.file.mimetype,
+                media_type: mediaType,
                 data: base64Image,
               },
             },
